@@ -2,7 +2,7 @@ import functools
 import glob
 import importlib
 import os
-from os.path import (join, dirname, isdir, normpath, splitext, basename)
+from os.path import (join, dirname, isdir, normpath, splitext, basename, exists)
 from os import listdir, walk, sep
 import sh
 import shlex
@@ -383,6 +383,8 @@ class Bootstrap:
         for filen in filens.split('\n'):
             if not filen:
                 continue  # skip the last ''
+            if not exists(filen):
+                continue
             try:
                 strip(filen, _env=env)
             except sh.ErrorReturnCode_1:

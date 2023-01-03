@@ -575,6 +575,7 @@ def run_setuppy_install(ctx, project_dir, env=None, arch=None):
             # site-packages folder instead.
             # Reference:
             # https://github.com/pypa/pip/issues/6223
+            print(arch)
             ctx_site_packages_dir = os.path.normpath(
                 os.path.abspath(ctx.get_site_packages_dir(arch))
             )
@@ -738,6 +739,9 @@ def run_pymodules_install(ctx, arch, modules, project_dir=None,
             info('Creating a requirements.txt file for the Python modules')
             with open('requirements.txt', 'w') as fileh:
                 for module in modules:
+                    if module=="dataclasses":
+                        info('dataclasses is skip')
+                        continue
                     key = 'VERSION_' + module
                     if key in environ:
                         line = '{}=={}\n'.format(module, environ[key])

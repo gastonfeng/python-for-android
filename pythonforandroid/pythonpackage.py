@@ -34,6 +34,7 @@
 
 
 import functools
+import logging
 import os
 import shutil
 import subprocess
@@ -42,6 +43,7 @@ import tarfile
 import tempfile
 import textwrap
 import time
+import traceback
 import zipfile
 from io import open  # needed for python 2
 from urllib.parse import unquote as urlunquote
@@ -320,6 +322,7 @@ def get_package_as_folder(dependency):
                     os.path.join(venv_parent, 'venv')
                 ], cwd=venv_parent)
         except subprocess.CalledProcessError as e:
+            logging.error(traceback.format_exc())
             output = e.output.decode('utf-8', 'replace')
             raise ValueError(
                 'venv creation unexpectedly ' +

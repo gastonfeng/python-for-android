@@ -1171,6 +1171,8 @@ class TargetPythonRecipe(Recipe):
             parts = file_basename.split('.')
             if len(parts) <= 2:
                 continue
+            if not exists(filen):
+                continue
             shprint(sh.mv, filen, join(file_dirname, parts[0] + '.so'))
 
 
